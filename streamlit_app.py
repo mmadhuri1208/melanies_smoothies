@@ -17,7 +17,17 @@ st.write('The name on your Smoothie will be:', name_on_order)
 # session = get_active_session()
 cnx = st.connection("snowflake")
 session = cnx.session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
+# Pull both FRUIT_NAME (for display) and SEARCH_ON (for lookup) into a dataframe
+my_dataframe = session.table("smoothies.public.fruit_options").select(
+    col("FRUIT_NAME"), 
+    col("SEARCH_ON")
+)
+
+# Display the dataframe to verify contents
+st.dataframe(data=my_dataframe, use_container_width=True)
+
+# Stop the app here temporarily to focus on verifying the dataframe
+st.stop()
 
 # Multiselect fruit options
 ingredients_list = st.multiselect(
