@@ -22,6 +22,13 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(
     col("FRUIT_NAME"), 
     col("SEARCH_ON")
 )
+
+# Display the dataframe to verify contents
+# st.dataframe(data=my_dataframe, use_container_width=True)
+
+# Stop the app here temporarily to focus on verifying the dataframe
+# st.stop()
+
 # Get Snowpark dataframe
 my_dataframe = session.table('smoothies.public.fruit_options') \
                       .select(col('FRUIT_NAME'), col('SEARCH_ON'))
@@ -30,15 +37,9 @@ my_dataframe = session.table('smoothies.public.fruit_options') \
 # pd_df = my_dataframe.to_pandas()
 
 # Display pandas dataframe to verify
-# st.dataframe(pd_df, use_container_width=True)
+st.dataframe(pd_df, use_container_width=True)
 
 # Optional: pause the app here during testing
-# st.stop()
-
-# Display the dataframe to verify contents
-st.dataframe(data=my_dataframe, use_container_width=True)
-
-# Stop the app here temporarily to focus on verifying the dataframe
 st.stop()
 
 # Multiselect fruit options
