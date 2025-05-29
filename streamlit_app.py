@@ -50,34 +50,34 @@ if ingredients_list:
     ingredients_string = ''
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
-        
-        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
-        # st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
-       
+
+        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+
         st.subheader(fruit_chosen + ' Nutrition Information')
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on)
-        # Display JSON response in a table
-        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
-        # st.stop()
+        st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
     st.write(ingredients_string)
 
-    # Construct SQL insert statement for both columns
-    my_insert_stmt = (
-        """insert into smoothies.public.orders (ingredients, name_on_order) """
-        + """values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
-    )
+    # Sanitize input to avoid breaking the SQL
+    safe_ingredients = ingredients_string.replace("'", "''")
+    safe_name = name_on_order.replace("'", "''")
 
-     # Button to submit order
+    # Construct SQL insert statement
+    my_insert_stmt = f"""
+        INSERT INTO smoothies.public.orders (ingredients, name_on_order)
+        VALUES ('{safe_ingredients}', '{safe_name}')
+    """
+
+    # Button to submit order
     time_to_insert = st.button('Submit Order')
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success(f"Your Smoothie is ordered, {name_on_order}!", icon="✅")
-   
+
     # Show the SQL for debugging
     st.write(my_insert_stmt)
-    st.stop()  # Pause app to verify the query is formatted correctly
-
+    st.stop()
 
 
 
