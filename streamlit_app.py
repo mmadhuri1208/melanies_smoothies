@@ -34,7 +34,7 @@ my_dataframe = session.table('smoothies.public.fruit_options') \
                       .select(col('FRUIT_NAME'), col('SEARCH_ON'))
 
 # Convert to pandas
-# pd_df = my_dataframe.to_pandas()
+pd_df = my_dataframe.to_pandas()
 
 # Display pandas dataframe to verify
 st.dataframe(pd_df, use_container_width=True)
