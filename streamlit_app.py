@@ -57,8 +57,8 @@ if ingredients_list:
        
         st.subheader(fruit_chosen + ' Nutrition Information')
         # Display JSON response in a table
-        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
-        st.stop()
+        # sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+        # st.stop()
 
     st.write(ingredients_string)
 
