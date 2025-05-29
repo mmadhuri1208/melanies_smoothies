@@ -44,7 +44,7 @@ if ingredients_list:
 
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
-        st.success(f"Your Smoothie is ordered, {name_on_order}!", icon="‚úÖ")
+        st.success(f"Your Smoothie is ordered, {name_on_order}!", icon="✅")
 
         
     # Show the SQL for debugging
