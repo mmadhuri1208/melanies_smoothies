@@ -35,9 +35,9 @@ my_dataframe = session.table('smoothies.public.fruit_options') \
 # Convert to pandas
 pd_df = my_dataframe.to_pandas()
 # Display pandas dataframe to verify
-st.dataframe(pd_df, use_container_width=True)
+# st.dataframe(pd_df, use_container_width=True)
 # Optional: pause the app here during testing
-st.stop()
+# st.stop()
 
 # Multiselect fruit options
 ingredients_list = st.multiselect(
