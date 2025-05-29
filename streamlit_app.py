@@ -58,6 +58,7 @@ if ingredients_list:
         st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
     st.write(ingredients_string)
+    st.write("SQL statement:", my_insert_stmt)
 
     # Sanitize input to avoid breaking the SQL
     safe_ingredients = ingredients_string.replace("'", "''")
