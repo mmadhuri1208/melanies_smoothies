@@ -15,7 +15,6 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
 # Start Snowpark session
-# session = get_active_session()
 cnx = st.connection("snowflake")
 session = cnx.session()
 # Pull both FRUIT_NAME (for display) and SEARCH_ON (for lookup) into a dataframe
@@ -23,6 +22,18 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(
     col("FRUIT_NAME"), 
     col("SEARCH_ON")
 )
+# Get Snowpark dataframe
+my_dataframe = session.table('smoothies.public.fruit_options') \
+                      .select(col('FRUIT_NAME'), col('SEARCH_ON'))
+
+# Convert to pandas
+pd_df = my_dataframe.to_pandas()
+
+# Display pandas dataframe to verify
+st.dataframe(pd_df, use_container_width=True)
+
+# Optional: pause the app here during testing
+st.stop()
 
 # Display the dataframe to verify contents
 st.dataframe(data=my_dataframe, use_container_width=True)
